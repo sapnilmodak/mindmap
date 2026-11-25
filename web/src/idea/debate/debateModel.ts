@@ -68,8 +68,8 @@ export function statusLine(s: DebateState): string {
   if (s.phase === 'idle') return '';
   if (s.phase === 'done') return 'Debate finished';
   if (s.phase === 'cancelled') return 'Debate stopped';
-  if (s.phase === 'failed') return s.error?.provider === 'system' ? 'Debate could not finish' : `${s.error?.provider === 'gpt' ? 'GPT' : 'Claude'} stepped out`;
-  if (s.speaker) return `${s.speaker === 'claude' ? 'Claude' : s.speaker === 'gpt' ? 'GPT' : 'You'} is speaking…`;
+  if (s.phase === 'failed') return s.error?.provider === 'system' ? 'Debate could not finish' : `${s.error?.provider === 'gpt' ? 'Haiku' : 'Claude'} stepped out`;
+  if (s.speaker) return `${s.speaker === 'claude' ? 'Claude' : s.speaker === 'gpt' ? 'Haiku' : 'You'} is speaking…`;
   if (s.summarizing) return 'Writing the summary…';
   return s.turns.length > 0 ? 'Thinking…' : 'Reading the wall…';
 }

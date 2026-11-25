@@ -47,7 +47,7 @@ export default function SettingsModal({ settings, prefs, osReduced, onPrefs, onS
 
         <section>
           <h3>The colleagues</h3>
-          <p className="io-note">Claude: <b>{settings.models.claude}</b> · GPT: <b>{settings.models.gpt}</b>{settings.demo && <span className="io-demochip"> demo: no API keys set</span>}. Models and keys are set in <code>.env</code> and never leave the server.</p>
+          <p className="io-note">Claude: <b>{settings.models.claude}</b> · Haiku: <b>{settings.models.gpt}</b>{settings.demo && <span className="io-demochip"> demo: no API keys set</span>}. Models and keys are set in <code>.env</code> and never leave the server.</p>
           <label className="io-row"><input type="checkbox" checked={auto} onChange={(e) => setAuto(e.target.checked)} /> Debate every new note automatically</label>
           <label className="io-row">Turns per debate
             <select value={turns} onChange={(e) => setTurns(Number(e.target.value))}>{[2, 3, 4, 5, 6].map((n) => <option key={n} value={n}>{n}</option>)}</select>

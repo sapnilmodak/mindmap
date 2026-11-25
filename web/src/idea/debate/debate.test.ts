@@ -40,14 +40,14 @@ describe('reduceDebate', () => {
     expect(statusLine(fold([START, ...turn(0, 'user', 'Hi.'), ...turn(1, 'claude', 'One.')]))).toBe('Thinking…');
     // an older server (or a replay) that does not say how many turns are planned never claims to be summarizing
     expect(statusLine(fold([{ type: 'debate_started', debateId: 'd1', noteId: 'n1' }, ...turn(0, 'claude', 'One.')]))).toBe('Thinking…');
-    expect(statusLine(fold([START, { type: 'turn_started', speaker: 'gpt', seq: 1 }]))).toBe('GPT is speaking…');
+    expect(statusLine(fold([START, { type: 'turn_started', speaker: 'gpt', seq: 1 }]))).toBe('Haiku is speaking…');
     expect(statusLine(fold([START]))).toBe('Reading the wall…');
   });
 
   it('records which colleague failed, and a cancel', () => {
     const f = fold([START, ...turn(0, 'claude', 'One.'), { type: 'debate_failed', provider: 'gpt', reason: '429' }]);
     expect(f).toMatchObject({ phase: 'failed', error: { provider: 'gpt', reason: '429' } });
-    expect(statusLine(f)).toBe('GPT stepped out');
+    expect(statusLine(f)).toBe('Haiku stepped out');
     expect(f.turns).toHaveLength(1);                                   // what was said stays
     expect(fold([START, { type: 'debate_cancelled', debateId: 'd1' }]).phase).toBe('cancelled');
   });

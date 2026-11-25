@@ -72,7 +72,7 @@ describe('runDebate', () => {
     expect(claude.calls[0].messages[0].content).toMatch(/Parking pain[\s\S]*solves/);          // the founder's own link, with its label
     expect(gpt.calls[0].messages[0].content).toMatch(/Claude said: Opening: this is Airbnb for parking\./);
     expect(claude.calls[1].messages.map((m) => m.role)).toEqual(['user', 'assistant', 'user']);
-    expect(claude.calls[2].messages[0].content).toMatch(/THE DEBATE[\s\S]*GPT: Fine, but validate/);
+    expect(claude.calls[2].messages[0].content).toMatch(/THE DEBATE[\s\S]*Haiku: Fine, but validate/);
     expect(claude.calls[0].maxTokens).toBe(700);
   });
 

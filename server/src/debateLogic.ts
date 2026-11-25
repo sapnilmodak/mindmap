@@ -14,13 +14,13 @@ export interface TurnRec { speaker: Speaker | 'user'; content: string }
 const dir = resolve(dirname(fileURLToPath(import.meta.url)), 'prompts');
 const read = (f: string) => readFileSync(resolve(dir, f), 'utf8').trim();
 export const PROMPTS = {
-  rules: read('shared-rules.md'), claude: read('claude-persona.md'), gpt: read('gpt-persona.md'),
+  rules: read('shared-rules.md'), claude: read('claude-persona.md'), gpt: read('sceptic-persona.md'),
   synthesis: read('synthesis.md'), briefs: read('turn-briefs.md').split(/\r?\n/).filter(Boolean),
 };
 
 export const MAX_TURNS = 6;
-export const speakerFor = (turnIndex: number): Speaker => (turnIndex % 2 === 0 ? 'claude' : 'gpt');   // Claude opens, GPT answers
-export const NAME: Record<Speaker | 'user', string> = { claude: 'Claude', gpt: 'GPT', user: 'The founder' };
+export const speakerFor = (turnIndex: number): Speaker => (turnIndex % 2 === 0 ? 'claude' : 'gpt');   // the analyst opens, the sceptic answers
+export const NAME: Record<Speaker | 'user', string> = { claude: 'Claude', gpt: 'Haiku', user: 'The founder' };
 
 export function systemPrompt(speaker: Speaker, founderProfile: string): string {
   const profile = founderProfile.trim() ? `\n\nAbout the founder (use it to judge fit, never repeat it back):\n${founderProfile.trim()}` : '';
@@ -48,7 +48,7 @@ export function buildTurnMessages(contextText: string, transcript: TurnRec[], sp
 const MAX_WORDS = 140;     // the prompt asks for 80; this is only a safety net for a model that ignores it
 // Cleans one spoken turn: no name prefix, one paragraph, bounded length, and never ends mid-sentence if a clean cut exists.
 export function tidyTurn(raw: string): string {
-  let t = raw.replace(/^\s*(claude|gpt|assistant|क्लॉड|क्लाउड|जीपीटी)\s*[:\-–]\s*/i, '').replace(/\s*\n+\s*/g, ' ').replace(/\s{2,}/g, ' ').trim();
+  let t = raw.replace(/^\s*(claude|gpt|assistant|क्लॉड|क्लाउड|जीपीटी|haiku|हाइकू)\s*[:\-–]\s*/i, '').replace(/\s*\n+\s*/g, ' ').replace(/\s{2,}/g, ' ').trim();
   const words = t.split(' ');
   if (words.length > MAX_WORDS) t = words.slice(0, MAX_WORDS).join(' ');
   if (/[.?!।…"')\]]$/.test(t)) return t;

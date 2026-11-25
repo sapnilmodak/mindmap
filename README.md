@@ -1,6 +1,6 @@
 # Idea Wall Office
 
-A 3D office where you pin business notes on a wall, link them, and watch two AI colleagues (Claude and GPT) debate them in Hindi.
+A 3D office where you pin business notes on a wall, link them, and watch two AI colleagues debate them in Hindi: a Claude analyst (Sonnet) and a sceptic (Haiku), on one Anthropic key. An OpenAI key is optional and only powers similar-note search.
 
 ## Run it (needs only Docker)
 

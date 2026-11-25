@@ -45,7 +45,7 @@ describe('buildTurnMessages', () => {
     expect(m[0].content).toMatch(/turn 1 of 4/);
     expect(m[0].content).toMatch(/Open the debate/);
   });
-  it('GPT on turn 2 sees Claude\'s words as the other side and is told to challenge', () => {
+  it('the sceptic on turn 2 sees Claude\'s words as the other side and is told to challenge', () => {
     const m = buildTurnMessages('CTX', [t[0]], 'gpt', 1, 4);
     expect(m).toHaveLength(1);                                  // context, Claude's turn and the brief all merge into one user message
     expect(m[0].content).toMatch(/Claude said: It is an Airbnb for parking\./);
@@ -55,7 +55,7 @@ describe('buildTurnMessages', () => {
     const m = buildTurnMessages('CTX', t, 'claude', 2, 4);
     expect(m.map((x) => x.role)).toEqual(['user', 'assistant', 'user']);
     expect(m[1].content).toBe('It is an Airbnb for parking.');
-    expect(m[2].content).toMatch(/GPT said: Who pays\?/);
+    expect(m[2].content).toMatch(/Haiku said: Who pays\?/);
     for (const [who, i] of [['claude', 2], ['gpt', 3]] as const) {
       const mm = buildTurnMessages('CTX', t, who, i, 4);
       expect(alternates(mm)).toBe(true);

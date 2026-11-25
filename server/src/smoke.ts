@@ -1,8 +1,8 @@
-// npm run smoke: checks Neo4j, the vector index, both chat providers and embeddings. Prints only pass/fail, never keys.
+// npm run smoke: checks Neo4j, the vector index, both colleagues and embeddings. Prints only pass/fail, never keys.
 import { cfg } from './config.js';
 import { closeGraph, initSchema, run } from './graph.js';
 import { embed } from './embeddings.js';
-import { claudeProvider, gptProvider, type Provider } from './providers.js';
+import { claudeProvider, type Provider } from './providers.js';
 
 let failed = 0;
 async function check(name: string, fn: () => Promise<string>) {
@@ -23,8 +23,10 @@ await check('vector index online', async () => {
   return String(r[0].get('state'));
 });
 await check(`claude (${cfg.claudeModel})`, () => say(claudeProvider()));
-await check(`openai chat (${cfg.openaiModel})`, () => say(gptProvider()));
-await check(`openai embeddings (${cfg.embedModel})`, async () => `${(await embed('hello')).length} dims`);
+await check(`sceptic (${cfg.scepticModel})`, () => say(claudeProvider('gpt')));
+// Optional: only similar-note (vector) search needs OpenAI.
+if (cfg.openaiKey) await check(`openai embeddings (${cfg.embedModel}, optional)`, async () => `${(await embed('hello')).length} dims`);
+else console.log('SKIP  openai embeddings: no OPENAI_API_KEY, similar-note search is off');
 
 await closeGraph();
 process.exit(failed ? 1 : 0);

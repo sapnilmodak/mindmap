@@ -1,5 +1,4 @@
 import Anthropic from '@anthropic-ai/sdk';
-import OpenAI from 'openai';
 import { cfg } from './config.js';
 
 export interface ChatMsg { role: 'user' | 'assistant'; content: string }
@@ -20,18 +19,21 @@ export async function collect(gen: AsyncGenerator<string, Usage, void>, onDelta:
   }
 }
 
-// Sonnet 5.5 thinks by default and that thinking counts against max_tokens, which would starve a short spoken turn.
-// `between_tools` is its "thinking off" setting (there are no tools here). Other models reject it, so only send it to this one.
-const noThinking = (model: string) => (model === 'claude-sonnet-5-5' ? { thinking: { type: 'between_tools' } as unknown as Anthropic.ThinkingConfigParam } : {});
+// Some models think by default, and thinking counts against max_tokens, which would starve a short spoken turn.
+// Each model has its own "off" setting (there are no tools here); sending the wrong one is an error, so unknown models get none.
+const THINKING_OFF: Record<string, { type: string }> = { 'claude-sonnet-5-5': { type: 'between_tools' }, 'claude-haiku-5-5': { type: 'disabled' } };
+const noThinking = (model: string) => (THINKING_OFF[model] ? { thinking: THINKING_OFF[model] as unknown as Anthropic.ThinkingConfigParam } : {});
 
-export function claudeProvider(): Provider {
+// Both colleagues are Claude. `slot` is the seat ('gpt' is the second seat's historical id, kept so saved debates still
+// replay) and `model` the Claude model that fills it.
+export function claudeProvider(slot: 'claude' | 'gpt' = 'claude', model: string = slot === 'claude' ? cfg.claudeModel : cfg.scepticModel): Provider {
   const client = new Anthropic({ apiKey: cfg.anthropicKey });
   return {
-    name: 'claude',
+    name: slot,
     async *stream(system, messages, maxTokens, signal) {
       // The system block (persona + founder profile) repeats on every call of a debate, so it is cached.
       const s = client.messages.stream(
-        { model: cfg.claudeModel, max_tokens: maxTokens, ...noThinking(cfg.claudeModel), system: [{ type: 'text', text: system, cache_control: { type: 'ephemeral' } }], messages },
+        { model, max_tokens: maxTokens, ...noThinking(model), system: [{ type: 'text', text: system, cache_control: { type: 'ephemeral' } }], messages },
         { signal },
       );
       for await (const ev of s) {
@@ -39,29 +41,6 @@ export function claudeProvider(): Provider {
       }
       const u = (await s.finalMessage()).usage;
       return { inputTokens: u.input_tokens, outputTokens: u.output_tokens };
-    },
-  };
-}
-
-export function gptProvider(): Provider {
-  const client = new OpenAI({ apiKey: cfg.openaiKey });
-  return {
-    name: 'gpt',
-    async *stream(system, messages, maxTokens, signal) {
-      const s = await client.chat.completions.create(
-        {
-          model: cfg.openaiModel, max_completion_tokens: maxTokens, stream: true, stream_options: { include_usage: true },
-          messages: [{ role: 'system', content: system }, ...messages],
-        },
-        { signal },
-      );
-      let usage: Usage = { inputTokens: 0, outputTokens: 0 };
-      for await (const chunk of s) {
-        const t = chunk.choices[0]?.delta?.content;
-        if (t) yield t;
-        if (chunk.usage) usage = { inputTokens: chunk.usage.prompt_tokens, outputTokens: chunk.usage.completion_tokens };
-      }
-      return usage;
     },
   };
 }

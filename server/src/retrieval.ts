@@ -41,8 +41,8 @@ export async function buildContext(noteId: string): Promise<Context | null> {
 
   let similar: Context['similar'] = [];
   try {
-    if (cfg.openaiKey) await embedMissing();                // notes written before the key was added get their vectors now
-    const vec = await embed(noteText(note.title, note.body));
+    const vec = await embed(noteText(note.title, note.body));   // fails fast without a working key, before trying every note
+    if (cfg.openaiKey) await embedMissing();                // notes written before the key worked get their vectors now
     similar = (await run(
       `CALL db.index.vector.queryNodes('note_embedding', $k, $vec) YIELD node, score
        WHERE node.deleted = false AND node.id <> $id AND score >= $min

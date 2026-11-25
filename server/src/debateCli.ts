@@ -6,7 +6,7 @@ import { cfg } from './config.js';
 import { closeGraph, initSchema } from './graph.js';
 import { listWall } from './notes.js';
 import { runDebate } from './debate.js';
-import { claudeProvider, gptProvider } from './providers.js';
+import { claudeProvider } from './providers.js';
 import { demoProviders } from './demoProviders.js';
 import type { DebateEvent } from '@idea-office/shared';
 
@@ -30,18 +30,18 @@ async function main() {
   if (!t) { console.error(`No note matches "${target}". Try --list.`); process.exitCode = 1; return; }
 
   const fake = flag('fake');
-  if (!fake && (!cfg.anthropicKey || !cfg.openaiKey)) {
-    console.error(`Missing ${[!cfg.anthropicKey && 'ANTHROPIC_API_KEY', !cfg.openaiKey && 'OPENAI_API_KEY'].filter(Boolean).join(' and ')} in idea-office/.env.\nAdd them, or add --fake to see the flow with scripted colleagues.`);
+  if (!fake && !cfg.anthropicKey) {
+    console.error('Missing ANTHROPIC_API_KEY in idea-office/.env.\nAdd it, or add --fake to see the flow with scripted colleagues.');
     process.exitCode = 1; return;
   }
-  const providers = fake ? demoProviders(10) : { claude: claudeProvider(), gpt: gptProvider() };
+  const providers = fake ? demoProviders(10) : { claude: claudeProvider(), gpt: claudeProvider('gpt') };
   const turns = opt('turns') ? Number(opt('turns')) : 4;
-  console.log(color(1, `\nDebating: "${t.title}"`) + color(90, `  [${t.type}] ${fake ? '(fake colleagues)' : `${cfg.claudeModel} vs ${cfg.openaiModel}`}\n`));
+  console.log(color(1, `\nDebating: "${t.title}"`) + color(90, `  [${t.type}] ${fake ? '(fake colleagues)' : `${cfg.claudeModel} vs ${cfg.scepticModel}`}\n`));
 
   const byId = new Map(notes.map((n) => [n.id, n.title]));
   let open = false;
   const onEvent = (e: DebateEvent) => {
-    if (e.type === 'turn_started') { process.stdout.write(color(e.speaker === 'claude' ? 33 : 32, `${e.speaker === 'claude' ? 'Claude' : 'GPT'}: `)); open = true; }
+    if (e.type === 'turn_started') { process.stdout.write(color(e.speaker === 'claude' ? 33 : 32, `${e.speaker === 'claude' ? 'Claude' : 'Haiku'}: `)); open = true; }
     else if (e.type === 'turn_delta') process.stdout.write(e.text);
     else if (e.type === 'turn_done' && open) { process.stdout.write('\n\n'); open = false; }
   };

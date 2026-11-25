@@ -71,7 +71,7 @@ export async function buildApp(opts: AppOptions = {}) {
     turnsPerDebate: await intSetting(TURNS, DEFAULT_TURNS),
     dailyTokenBudget: await intSetting(BUDGET, DEFAULT_DAILY_TOKENS),
     demo: isDemo(),
-    models: { claude: cfg.claudeModel, gpt: cfg.openaiModel },          // names only; the keys never leave the server
+    models: { claude: cfg.claudeModel, gpt: cfg.scepticModel },          // names only; the keys never leave the server
   });
   app.get('/api/settings', readSettings);
   app.put('/api/settings', async (req) => {

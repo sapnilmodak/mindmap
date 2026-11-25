@@ -19,8 +19,7 @@ import type { PendingLink } from './wall/Threads';
 import WallController from './wall/WallController';
 
 export const CLAUDE_LOOK = { model: 'Suit', title: 'Claude', sub: 'Business analyst', ring: '#D97757' };
-export const GPT_LOOK = { model: 'Casual_Hoodie', title: 'GPT', sub: 'Sceptic', ring: '#10A37F' };
-const PLAYER_MODEL = 'Worker';
+export const GPT_LOOK = { model: 'Casual_Hoodie', title: 'Haiku', sub: 'Sceptic', ring: '#10A37F' };
 
 function corkTexture(): CanvasTexture {
   const cv = document.createElement('canvas'); cv.width = 512; cv.height = 256;
@@ -128,7 +127,7 @@ export default function IdeaScene({ stage, mode, reduced, maximized, onZone, onI
   const ranked = useMemo(() => [...notes].sort((a, b) => a.z - b.z), [notes]);
   const tex = useTextures();
   const positions = useRef(new Map<string, V2>());
-  useEffect(() => { preloadFurniture(); preloadCharacters([PLAYER_MODEL, CLAUDE_LOOK.model, GPT_LOOK.model]); }, []);
+  useEffect(() => { preloadFurniture(); preloadCharacters([CLAUDE_LOOK.model, GPT_LOOK.model]); }, []);
   const noop = () => undefined;
   const workerObstacles = () => (['claude', 'gpt'] as const).flatMap((id) => { const p = positions.current.get(id); return p ? [circle(p.x, p.z, 0.4)] : []; });
   return (
@@ -159,7 +158,7 @@ export default function IdeaScene({ stage, mode, reduced, maximized, onZone, onI
         ))}
         <Threads notes={notes} links={links} selectedNoteId={selectedId} selectedLinkId={selectedLinkId} dimmedIds={dimmedIds} pending={pending} />
         <WallController active={mode === 'wall'} maximized={maximized} reduced={reduced} notes={notes} links={links} onSelect={onSelect} onSelectLink={onSelectLink} onLinkDrag={onLinkDrag} onLinkCreate={onLinkCreate} onDragStart={onDragStart} onDrag={onDrag} onDrop={onDrop} focus={focus} />
-        <Player extraObstacles={workerObstacles} model={PLAYER_MODEL} enabled={mode === 'walk'} cameraControl={mode === 'walk'} hidden={mode === 'wall'} reduced={reduced} onZone={onZone} onInteract={onInteract} />
+        <Player extraObstacles={workerObstacles} enabled={mode === 'walk'} cameraControl={mode === 'walk'} reduced={reduced} onZone={onZone} onInteract={onInteract} />
       </Suspense>
     </Canvas>
   );

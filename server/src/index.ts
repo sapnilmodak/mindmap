@@ -13,6 +13,6 @@ void embedMissing().then((n) => n && app.log.info(`embedded ${n} existing notes`
 await app.listen({ host: cfg.host, port: cfg.port });
 const backupDir = resolve(dirname(fileURLToPath(import.meta.url)), '../../backups');
 scheduleBackups(backupDir, (e) => app.log.error(e, 'daily backup failed'));
-if (isDemo()) app.log.warn('No API keys set: debates use scripted DEMO colleagues. Add ANTHROPIC_API_KEY and OPENAI_API_KEY to .env for real ones.');
+if (isDemo()) app.log.warn('No Anthropic key: debates use scripted DEMO colleagues. Add ANTHROPIC_API_KEY to .env for real ones.');
 
 for (const sig of ['SIGINT', 'SIGTERM'] as const) process.on(sig, async () => { await app.close(); await closeGraph(); process.exit(0); });

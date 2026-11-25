@@ -4,7 +4,7 @@ import { isRunning, statusLine } from '../debate/debateModel';
 import type { DebateState, SuggestionView } from '../debate/debateModel';
 import { TYPE_LABEL } from '../wall/wallGeometry';
 
-const NAMES = { claude: 'Claude', gpt: 'GPT', user: 'You' } as const;
+const NAMES = { claude: 'Claude', gpt: 'Haiku', user: 'You' } as const;
 const VERDICT: Record<string, string> = { promising: 'Promising', needs_work: 'Needs work', weak: 'Weak' };
 
 interface Props {
@@ -85,7 +85,7 @@ export default function DebatePanel({ state, note, noteTitleOf, demo, lost, mode
 
         {state.phase === 'failed' && (
           <div className="io-failed" role="alert">
-            {state.error?.provider === 'system' ? 'The debate hit a problem' : `${state.error?.provider === 'gpt' ? 'GPT' : 'Claude'} stepped out`}: <span>{state.error?.reason}</span>
+            {state.error?.provider === 'system' ? 'The debate hit a problem' : `${state.error?.provider === 'gpt' ? 'Haiku' : 'Claude'} stepped out`}: <span>{state.error?.reason}</span>
             <div><button className="io-btn" onClick={onRetry}>Try again</button></div>
           </div>
         )}

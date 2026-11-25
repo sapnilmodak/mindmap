@@ -1,4 +1,4 @@
-// The debate orchestrator: gather context from the graph, let Claude and GPT take turns, then have Claude write a validated
+// The debate orchestrator: gather context from the graph, let the two Claude colleagues take turns, then have Claude write a validated
 // summary with suggested links and notes. Every step is saved as it happens, so a failed debate keeps what was already said.
 import type { DebateEvent } from '@idea-office/shared';
 import { buildContext, renderContext } from './retrieval.js';
