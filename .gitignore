@@ -1,0 +1,19 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# installed and built
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+
+# your own data
+backups/
+neo4j-data/
+
+# noise
+*.log
+.DS_Store
+Thumbs.db

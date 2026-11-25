@@ -1,0 +1,214 @@
+[
+ {
+  "type": "worker_roster",
+  "workers": [
+   "quant",
+   "warden",
+   "scout",
+   "scribe",
+   "devops_sre",
+   "red_teamer",
+   "auditor",
+   "economist",
+   "chief_of_staff",
+   "growth_hacker"
+  ],
+  "wave1": [
+   "quant",
+   "warden",
+   "scout",
+   "scribe",
+   "devops_sre"
+  ],
+  "wave2": [
+   "red_teamer",
+   "auditor",
+   "economist",
+   "chief_of_staff",
+   "growth_hacker"
+  ]
+ },
+ {
+  "type": "worker_start",
+  "worker": "quant",
+  "wave": 1
+ },
+ {
+  "type": "worker_start",
+  "worker": "warden",
+  "wave": 1
+ },
+ {
+  "type": "worker_start",
+  "worker": "scout",
+  "wave": 1
+ },
+ {
+  "type": "worker_question",
+  "questionId": "demo-q1",
+  "worker": "scout",
+  "wave": 1,
+  "question": "Which region should I size the e-axle market for?"
+ },
+ {
+  "type": "worker_question_answered",
+  "questionId": "demo-q1",
+  "worker": "scout",
+  "answer": "Europe first."
+ },
+ {
+  "type": "worker_start",
+  "worker": "scribe",
+  "wave": 1
+ },
+ {
+  "type": "worker_start",
+  "worker": "devops_sre",
+  "wave": 1
+ },
+ {
+  "type": "worker_end",
+  "worker": "quant",
+  "wave": 1,
+  "status": "completed",
+  "confidence": 0.75,
+  "analysis": "## CFO Analysis: Capital Structure & Investment Sequencing\n\nLooking at this purely through the finance lens, **none of the three options as presented clears all gates**. But the gates themselves point to the solution.\n\n### The Core Financial Problem\n\nOption A delivers the best 2030 business (EUR 2,850M revenue, 14.4% EBITDA margin) but breaches the covenant at 3.4\u00d7 in 2027 when the limit is 3.00\u00d7. The breach is **0.4 turns** \u2013 material, but not catastrophic. That's roughly EUR 115M of excess debt given projected 2027 EBITDA.\n\nOption B stays inside the covenant but produces a structurally declining business \u2013 2030 EBITDA margin of 10.8% barely clears the gate, and the revenue of EUR 1,900M fa ...",
+  "verdict": "neutral"
+ },
+ {
+  "type": "worker_end",
+  "worker": "devops_sre",
+  "wave": 1,
+  "status": "completed",
+  "confidence": 0.75,
+  "analysis": "## Operations View: Infrastructure, Execution Risk, and Operational Feasibility\n\nLooking at this through an operational lens, **none of the three options as currently designed can be executed** \u2014 but that's precisely why we need to redesign, not abandon.\n\n### The Core Operational Problem\n\n**Option A fails on covenant math, not operational merit.** The 3.4x peak leverage in 2027 breaches the 3.00x limit \u2014 but this is a *financing structure* problem, not an execution problem. The underlying operational case is the strongest: 2030 EBITDA of EUR 410M at 14.4% margin, the highest of any option.\n\n**Option B fails on strategic viability.** Closing Zwickau and Heidenau saves EUR 95M annually from 20 ...",
+  "verdict": "neutral"
+ },
+ {
+  "type": "worker_end",
+  "worker": "scribe",
+  "wave": 1,
+  "status": "completed",
+  "confidence": 0.75,
+  "analysis": "# Marketing (CMO) Perspective: Brand, Customer Positioning & Communications Strategy\n\nLooking at Halden's strategic dilemma through a marketing lens, **none of the three options as currently structured passes the hard gates \u2014 but Option A (Electrify) can be redesigned to work, and it's the only path that protects Halden's market position.**\n\n## The Core Marketing Problem\n\nHalden faces a **customer confidence crisis masquerading as a financing problem**. VW, Stellantis, and BMW are deciding right now whether Halden will be a credible e-drive partner for the next decade. Every quarter of indecision is a quarter where competitors shape the narrative.\n\n**Option B (Harvest) is marketing suicide.* ...",
+  "verdict": "neutral"
+ },
+ {
+  "type": "worker_end",
+  "worker": "scout",
+  "wave": 1,
+  "status": "completed",
+  "confidence": 0.75,
+  "analysis": "## Operations Assessment: Market Position and Execution Reality\n\nThe verified gate evaluation shows that **none of the three options as currently structured meet all constraints**. As COO, my job is to tell you what that means operationally and how to fix it.\n\n### The Core Problem\n\nOption A breaches the covenant at 3.4x in 2027 (limit: 3.00x through Q3 2027, 2.75x from Q4 2027). Option B shrinks the company below viability thresholds. Option C reduces VW award probability to 40% \u2014 below the 50% gate \u2014 because VW has signaled that Chinese ownership above 25% of BOM triggers additional approval hurdles.\n\n**You cannot choose any of these as written.** You must re-sequence.\n\n### Recommended Path ...",
+  "verdict": "neutral"
+ },
+ {
+  "type": "worker_end",
+  "worker": "warden",
+  "wave": 1,
+  "status": "completed",
+  "confidence": 0.75,
+  "analysis": "# Legal & Risk Clearance Analysis: Halden Strategic Options\n\n## Executive Summary\n\n**All three options as currently structured fail your decision gates and carry material legal/regulatory risk.** None can be recommended without redesign. The covenant breach in Option A, the works council collision in Option B, and the Chinese-content barrier in Option C each create enforcement risk that could destroy enterprise value.\n\n**Recommendation: Staged hybrid sequence**  \n1. **Immediate (Q1 2026):** Open covenant amendment negotiations with lenders. Secure 3.75x headroom through Q3 2028 in exchange for quarterly reporting and a modest fee (25-50 bps).  \n2. **Q2 2026:** Acquire Voltaris only (EUR 240M ...",
+  "verdict": "neutral"
+ },
+ {
+  "type": "worker_message",
+  "from": "quant",
+  "to": "wave2",
+  "snippet": "## CFO Analysis: Capital Structure & Investment Sequencing\n\nLooking at this purely through the finance lens, **none of the three options as presented clears all gates**. But the gates themselves point"
+ },
+ {
+  "type": "worker_message",
+  "from": "warden",
+  "to": "wave2",
+  "snippet": "# Legal & Risk Clearance Analysis: Halden Strategic Options\n\n## Executive Summary\n\n**All three options as currently structured fail your decision gates and carry material legal/regulatory risk.** None"
+ },
+ {
+  "type": "worker_message",
+  "from": "scout",
+  "to": "wave2",
+  "snippet": "## Operations Assessment: Market Position and Execution Reality\n\nThe verified gate evaluation shows that **none of the three options as currently structured meet all constraints**. As COO, my job is t"
+ },
+ {
+  "type": "worker_message",
+  "from": "scribe",
+  "to": "wave2",
+  "snippet": "# Marketing (CMO) Perspective: Brand, Customer Positioning & Communications Strategy\n\nLooking at Halden's strategic dilemma through a marketing lens, **none of the three options as currently structure"
+ },
+ {
+  "type": "worker_message",
+  "from": "devops_sre",
+  "to": "wave2",
+  "snippet": "## Operations View: Infrastructure, Execution Risk, and Operational Feasibility\n\nLooking at this through an operational lens, **none of the three options as currently designed can be executed** \u2014 but "
+ },
+ {
+  "type": "worker_start",
+  "worker": "red_teamer",
+  "wave": 2
+ },
+ {
+  "type": "worker_start",
+  "worker": "auditor",
+  "wave": 2
+ },
+ {
+  "type": "worker_start",
+  "worker": "economist",
+  "wave": 2
+ },
+ {
+  "type": "worker_start",
+  "worker": "chief_of_staff",
+  "wave": 2
+ },
+ {
+  "type": "worker_start",
+  "worker": "growth_hacker",
+  "wave": 2
+ },
+ {
+  "type": "worker_end",
+  "worker": "red_teamer",
+  "wave": 2,
+  "status": "completed",
+  "confidence": 0.75,
+  "analysis": "# Board Perspective: Adversarial Review & Governance Reality Check\n\nLooking at this as the independent board voice \u2014 the person in the room whose job is to protect shareholders from management optimism and prevent catastrophic mistakes \u2014 **I cannot support any of these three options as presented, and I question whether the strategic framing itself is sound.**\n\n## The Fundamental Governance Problem\n\nYou've structured this as a forced trilemma, but all three options fail your own gates. That's not bad luck with the numbers \u2014 it's evidence that **the options weren't designed to clear the constraints you face.** \n\nThe board's fiduciary duty here is not to pick the least-bad failure mode. It's to ...",
+  "verdict": "neutral"
+ },
+ {
+  "type": "worker_end",
+  "worker": "economist",
+  "wave": 2,
+  "status": "completed",
+  "confidence": 0.75,
+  "analysis": "## CFO Analysis: Capital Structure, Investment Sequencing & Financial Strategy\n\nThe verified gate evaluation shows **all three options fail as written** \u2014 but that's not the end of the analysis, it's the beginning. The gates tell us what needs to change.\n\n### The Financial Reality\n\n**Option A** delivers the strongest 2030 business (EUR 2,850M revenue, 14.4% EBITDA margin, EUR 410M EBITDA) but peaks at **3.4x leverage in 2027** against covenants of 3.00x (through Q3 2027) and 2.75x (Q4 2027 onward). That's a breach of 0.4x and 0.65x respectively \u2014 material, but not insurmountable.\n\n**Option B** stays within covenant (peaks at 2.4x) but **locks in structural decline**: EUR 1,900M revenue in 20 ...",
+  "verdict": "neutral"
+ },
+ {
+  "type": "worker_end",
+  "worker": "chief_of_staff",
+  "wave": 2,
+  "status": "completed",
+  "confidence": 0.75,
+  "analysis": "# Strategic Recommendation: Halden 2026-2030\n\n## The Answer\n\n**Recommend Option A-Modified: stage the investment so the covenant is never breached, then execute the full electrification program once the VW award is secured.**\n\nNone of the three options as written clears all gates. But the gates themselves show you what to build: Option A delivers the strongest 2030 business (EUR 2,850M revenue, 14.4% EBITDA margin), but its peak leverage of 3.4x breaches the 3.00x covenant in 2027. The fix is **sequencing**: split the EUR 680M investment into tranches that keep leverage below the covenant at every test date, conditional on winning the VW SEP-2 award in Q2 2026.\n\n---\n\n## Investment Staging to ...",
+  "verdict": "neutral"
+ },
+ {
+  "type": "worker_end",
+  "worker": "auditor",
+  "wave": 2,
+  "status": "completed",
+  "confidence": 0.75,
+  "analysis": "# CFO Analysis: Capital Structure, Investment Sequencing & Financial Governance\n\n## Executive Summary\n\n**All three options as presented fail mandatory gates, but Option A (Electrify) can be redesigned to work by staging the investment to respect the covenant.** The gate evaluation shows Option A breaches peak leverage (3.4x vs. 3.00x limit in 2027), Option B fails on revenue and margin, and Option C fails on VW award probability. The CFO's job is to show how to restructure A so it clears the covenant while preserving the strategic upside.\n\n---\n\n## The Financial Reality\n\n**Current position (FY2025):**\n- Net debt EUR 750M / EBITDA EUR 288M = **2.60x leverage**\n- Covenant: \u2264 3.00x through Q3 20 ...",
+  "verdict": "neutral"
+ },
+ {
+  "type": "worker_end",
+  "worker": "growth_hacker",
+  "wave": 2,
+  "status": "completed",
+  "confidence": 0.75,
+  "analysis": "# CMO Analysis: Market Positioning, Brand Narrative & Commercial Momentum\n\nLooking at Halden through the marketing lens, **none of the three options as written passes all gates \u2014 but the gates tell us what must be fixed, not that we should give up.** The marketing reality is stark: **Option A is the only path that positions Halden as a credible player in the market that matters.** Options B and C both surrender the core commercial narrative you need to win customers and retain talent in a consolidating industry.\n\n---\n\n## The Commercial Reality: Why Only Option A Preserves Market Position\n\n### Customer Perception & the VW SEP-2 Decision\n\nVW is 31% of your revenue. The SEP-2 award is the singl ...",
+  "verdict": "neutral"
+ }
+]
